@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en" data-theme="light" style="scroll-behavior: smooth;">
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -8,11 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="index.css" />
+  <!-- Preload hero image for LCP -->
+<link rel="preload" href="assets/hero_collaboration.png" as="image" />
 </head>
 <body>
-
-  <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <span class="nav-logo">✦ She Can Foundation</span>
@@ -28,10 +28,9 @@
     </div>
   </nav>
 
-  <!-- ===== HERO SECTION ===== -->
   <section id="home" class="hero">
     <div class="hero-bg">
-      <img src="assets/hero_collaboration.png" alt="" aria-hidden="true" class="hero-bg-img" />
+      <img src="assets/hero_collaboration.png" alt="" aria-hidden="true" class="hero-bg-img" loading="lazy" />
       <div class="hero-overlay"></div>
     </div>
     <div class="hero-body">
@@ -45,8 +44,6 @@
     </div>
     <div class="hero-scroll-hint" aria-hidden="true">↓</div>
   </section>
-
-  <!-- ===== ABOUT SECTION ===== -->
   <section id="about" class="section about-section">
     <div class="section-inner">
       <div class="section-label">Who We Are</div>
@@ -71,8 +68,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ===== IMPACT SECTION ===== -->
   <section id="impact" class="section impact-section">
     <div class="section-inner">
       <div class="section-label">Our Impact</div>
@@ -101,8 +96,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ===== JOIN / CTA SECTION ===== -->
   <section class="section cta-section">
     <div class="cta-inner">
       <h2>Ready to Make a Difference?</h2>
@@ -110,8 +103,6 @@
       <button class="btn-primary btn-lg" id="openModalBtn3">Volunteer / Join Us</button>
     </div>
   </section>
-
-  <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="footer-inner">
       <span class="footer-logo">✦ She Can Foundation</span>
@@ -125,9 +116,7 @@
       </div>
     </div>
   </footer>
-
-  <!-- ===== VOLUNTEER MODAL ===== -->
-  <dialog id="volunteerDialog" aria-labelledby="modalTitle" closedby="any">
+  <dialog id="volunteerDialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle" closedby="any">
     <div class="modal-header">
       <h2 id="modalTitle">Join Our Community 💜</h2>
       <button class="modal-close" id="closeModalBtn" aria-label="Close dialog">&times;</button>
@@ -148,5 +137,6 @@
   </dialog>
 
   <script src="index.js"></script>
+<button id="backToTop" class="back-to-top" aria-label="Back to top">&#8679;</button>
 </body>
 </html>

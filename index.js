@@ -1,6 +1,5 @@
 // index.js — She Can Foundation interactive features
 
-// ===== THEME TOGGLE =====
 const html = document.documentElement;
 const themeBtn = document.getElementById('themeToggle');
 
@@ -8,8 +7,6 @@ const applyTheme = (dark) => {
   html.setAttribute('data-theme', dark ? 'dark' : 'light');
   if (themeBtn) themeBtn.textContent = dark ? '☀️' : '🌙';
 };
-
-// Detect saved preference or system preference
 const savedTheme = localStorage.getItem('scf-theme');
 const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 applyTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
@@ -21,8 +18,6 @@ if (themeBtn) {
     localStorage.setItem('scf-theme', isDark ? 'dark' : 'light');
   });
 }
-
-// ===== MODAL LOGIC =====
 const dialog = document.getElementById('volunteerDialog');
 
 const openModal = () => {
@@ -33,19 +28,16 @@ const closeModal = () => {
   if (dialog) dialog.close();
 };
 
-// All open buttons
 ['openModalBtn', 'openModalBtn2', 'openModalBtn3'].forEach(id => {
   const btn = document.getElementById(id);
   if (btn) btn.addEventListener('click', openModal);
 });
 
-// Close buttons
 ['closeModalBtn', 'closeModalBtn2'].forEach(id => {
   const btn = document.getElementById(id);
   if (btn) btn.addEventListener('click', closeModal);
 });
 
-// Light-dismiss fallback for browsers that don't support closedby="any"
 if (dialog && !('closedBy' in HTMLDialogElement.prototype)) {
   dialog.addEventListener('click', (e) => {
     if (e.target !== dialog) return;
@@ -57,7 +49,62 @@ if (dialog && !('closedBy' in HTMLDialogElement.prototype)) {
   });
 }
 
-// ===== VOLUNTEER FORM SUBMISSION =====
+const backToTopBtn = document.getElementById('backToTop');
+if (backToTopBtn) {
+  // Show/hide based on scroll position
+  const toggleVisibility = () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.style.opacity = '1';
+      backToTopBtn.style.pointerEvents = 'auto';
+    } else {
+      backToTopBtn.style.opacity = '0';
+      backToTopBtn.style.pointerEvents = 'none';
+    }
+  };
+  window.addEventListener('scroll', toggleVisibility);
+  backToTopBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+const heroBg = document.querySelector('.hero-bg');
+if (heroBg) {
+  const parallax = () => {
+    const offset = window.scrollY * 0.3; // slower movement
+    heroBg.style.transform = `translateY(${offset}px)`;
+  };
+  window.addEventListener('scroll', parallax);
+}
+
+const trapFocus = (e) => {
+  const focusable = dialog.querySelectorAll('a[href], button:not([disabled]), textarea, input, select');
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (e.key === 'Tab') {
+    if (e.shiftKey) { // shift + tab
+      if (document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else { // tab
+      if (document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  }
+};
+if (dialog) {
+  dialog.addEventListener('showModal', () => {
+    const focusable = dialog.querySelectorAll('a[href], button:not([disabled]), textarea, input, select');
+    if (focusable.length) focusable[0].focus();
+    dialog.addEventListener('keydown', trapFocus);
+  });
+  dialog.addEventListener('close', () => {
+    dialog.removeEventListener('keydown', trapFocus);
+  });
+}
 const form = document.getElementById('volunteerForm');
 const successMsg = document.getElementById('successMsg');
 
@@ -84,7 +131,6 @@ if (form) {
   });
 }
 
-// ===== SCROLL REVEAL =====
 const revealItems = document.querySelectorAll('.card, .stat-card, .testimonial, .cta-inner, .section-title, .section-lead, .section-label');
 revealItems.forEach(el => el.classList.add('reveal'));
 
@@ -99,7 +145,6 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 revealItems.forEach(el => revealObserver.observe(el));
 
-// ===== STAT COUNTER ANIMATION =====
 const statNums = document.querySelectorAll('.stat-num');
 let statsAnimated = false;
 
@@ -127,11 +172,9 @@ if (statNums.length > 0) {
   statNums.forEach(el => statsObserver.observe(el));
 }
 
-// ===== FOOTER YEAR =====
 const yearEl = document.getElementById('year');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-// ===== NAVBAR SHADOW ON SCROLL =====
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   if (navbar) {
