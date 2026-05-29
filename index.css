@@ -1,0 +1,221 @@
+/* index.css - Premium modern design for She Can Foundation */
+
+/* ==== CSS Variables (Design Tokens) ==== */
+:root {
+  /* Color palette – harmonious HSL values */
+  --color-primary-h: 262;   /* deep violet */
+  --color-primary-s: 55%;
+  --color-primary-l: 55%;
+  --color-accent-h: 41;   /* warm gold */
+  --color-accent-s: 80%;
+  --color-accent-l: 55%;
+  --color-bg-h: 230;    /* muted indigo */
+  --color-bg-s: 25%;
+  --color-bg-l: 97%;
+  --color-bg-dark-h: 230;
+  --color-bg-dark-s: 22%;
+  --color-bg-dark-l: 15%;
+  --color-text-h: 240;
+  --color-text-s: 10%;
+  --color-text-l: 20%;
+  --color-text-dark-h: 240;
+  --color-text-dark-s: 10%;
+  --color-text-dark-l: 90%;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: hsl(var(--color-bg-dark-h), var(--color-bg-dark-s), var(--color-bg-dark-l));
+    --color-text: hsl(var(--color-text-dark-h), var(--color-text-dark-s), var(--color-text-dark-l));
+    --color-primary: hsl(var(--color-primary-h), var(--color-primary-s), 45%);
+    --color-accent: hsl(var(--color-accent-h), var(--color-accent-s), 45%);
+  }
+}
+
+/* Light theme defaults */
+:root {
+  --color-bg: hsl(var(--color-bg-h), var(--color-bg-s), var(--color-bg-l));
+  --color-text: hsl(var(--color-text-h), var(--color-text-s), var(--color-text-l));
+  --color-primary: hsl(var(--color-primary-h), var(--color-primary-s), var(--color-primary-l));
+  --color-accent: hsl(var(--color-accent-h), var(--color-accent-s), var(--color-accent-l));
+}
+
+/* ==== Global Reset & Base ==== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ==== Typography ==== */
+h1, h2, h3 {
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-primary);
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3rem); }
+h2 { font-size: clamp(1.5rem, 4vw, 2.2rem); }
+h3 { font-size: clamp(1.2rem, 3.5vw, 1.8rem); }
+
+p { margin-bottom: 1rem; }
+
+/* ==== Layout ==== */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1rem;
+  overflow: hidden;
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7) contrast(1.2);
+  z-index: -1;
+}
+
+.hero-content {
+  max-width: 800px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.12);
+  border-radius: 1rem;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+}
+
+.cta-button {
+  --btn-bg: var(--color-primary);
+  --btn-fg: #fff;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s;
+  margin-top: 1rem;
+}
+
+.cta-button:hover,
+.cta-button:focus {
+  background: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+.secondary-button {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s;
+}
+
+.secondary-button:hover,
+.secondary-button:focus {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.section {
+  padding: 4rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer {
+  margin-top: auto;
+  background: rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* ==== Modal Dialog ==== */
+/* Native <dialog> styling, respects closedby="any" for light‑dismiss */
+
+dialog {
+  border: none;
+  border-radius: 1rem;
+  padding: 2rem;
+  width: min(90%, 500px);
+  background: var(--color-bg);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.2);
+}
+
+dialog::backdrop {
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-form input[type="email"] {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* ==== Responsive Tweaks ==== */
+@media (max-width: 600px) {
+  .hero-content { padding: 1.5rem; }
+  .cta-button { width: 100%; }
+  .secondary-button { width: auto; }
+}
+
+/* ==== Animations ==== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-content, .section {
+  animation: fadeInUp 0.8s ease-out both;
+}
+
+/* ==== Utility Classes ==== */
+.hidden { display: none !important; }
+
+/* ==== Accessibility ==== */
+button:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ==== End of stylesheet */
